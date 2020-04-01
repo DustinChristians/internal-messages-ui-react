@@ -22,8 +22,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "eslint.CodeActionsOnSave": false,
+    "eslint.allowTrailingCommas": true,
     "prettier-eslintIntegration": true,
     "prettier.singleQuote": true,
-    "prettier-stylelintIntegration": true
+    "prettier-stylelintIntegration": true,
+    "prettier.trailingComma": "es5"
   }
 }
