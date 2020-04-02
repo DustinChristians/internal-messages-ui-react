@@ -5,11 +5,18 @@ import './App.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import configureStore from './redux/configureStore';
+// Provides redux store data to react components
+import { Provider as ReduxProvider } from 'react-redux';
+
+const store = configureStore();
 
 render(
-  <Router>
-    <App />
-  </Router>,
+  <ReduxProvider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </ReduxProvider>,
   document.getElementById('root')
 );
 
