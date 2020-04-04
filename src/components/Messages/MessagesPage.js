@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import createMessageAction from '../../redux/actions/messageActions';
+import { bindActionCreators } from 'redux';
+import * as messageActions from '../../redux/actions/messageActions';
 
 const MessagesPage = (props) => {
-  const { messages, createMessage } = props;
+  const { messages, actions } = props;
 
   const handleSubmit = (event) => {
     const message = { text: event.target.elements.message.value };
 
     // prevent the browser's default behavior to reload
     event.preventDefault();
-    createMessage(message);
+    actions.createMessage(message);
   };
 
   return (
@@ -29,7 +30,7 @@ const MessagesPage = (props) => {
 
 MessagesPage.propTypes = {
   messages: PropTypes.instanceOf(Array).isRequired,
-  createMessage: PropTypes.func.isRequired,
+  actions: PropTypes.instanceOf(Object).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -40,7 +41,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createMessage: (message) => dispatch(createMessageAction(message)),
+    actions: bindActionCreators(messageActions, dispatch),
   };
 }
 
