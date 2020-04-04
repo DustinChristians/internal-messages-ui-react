@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import * as messageActions from '../../redux/actions/messageActions';
+import * as messageActions from '../../redux/actions/message.actions';
 
 const MessagesPage = (props) => {
   const { messages, actions } = props;
