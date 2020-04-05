@@ -7,24 +7,13 @@ import * as messageActions from '../../redux/actions/message.actions';
 const MessagesPage = (props) => {
   const { messages, actions } = props;
 
-  const handleSubmit = (event) => {
-    const message = { text: event.target.elements.message.value };
-
-    // prevent the browser's default behavior to reload
-    event.preventDefault();
-    actions.createMessage(message);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <h2>Messages</h2>
-      <h3>Add message</h3>
-      <input type="text" name="message" />
-      <input type="submit" value="Save" />
       {messages.map((message) => (
         <div key={message.text}>{message.text}</div>
       ))}
-    </form>
+    </>
   );
 };
 
