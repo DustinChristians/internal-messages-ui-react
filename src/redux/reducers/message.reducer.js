@@ -1,6 +1,7 @@
 import * as types from '../actions/action-types.constants';
+import initialState from './initialState';
 
-export default function messageReducer(state = [], action) {
+export default function messageReducer(state = initialState.messages, action) {
   switch (action.type) {
     case types.CREATE_MESSAGE:
       return [...state, { ...action.message }];
