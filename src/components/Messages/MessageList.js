@@ -8,7 +8,7 @@ const messageList = ({ messages }) => (
       <div key={message.id}>
         <div>
           User:
-          {message.userId}
+          {message.userName}
         </div>
         <div>
           Date:
