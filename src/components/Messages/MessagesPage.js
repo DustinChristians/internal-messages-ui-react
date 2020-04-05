@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as messageActions from '../../redux/actions/message.actions';
+import MessageList from './MessageList';
 
 const MessagesPage = (props) => {
   const { messages, actions } = props;
@@ -16,9 +17,7 @@ const MessagesPage = (props) => {
   return (
     <>
       <h2>Messages</h2>
-      {messages.map((message) => (
-        <div key={message.id}>{message.text}</div>
-      ))}
+      <MessageList messages={messages} />
     </>
   );
 };
