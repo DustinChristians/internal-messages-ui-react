@@ -23,6 +23,7 @@ const messageList = ({ messages }) => (
         </Link>
       </div>
     ))}
+    <input type="text" />
   </>
 );
 
