@@ -1,20 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePage from './components/home/HomePage';
-import LoginPage from './components/login/LoginPage';
-import Header from './components/common/Header';
-import PageNotFound from './components/PageNotFound';
-import MessagesPage from './components/Messages/MessagesPage';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import MessagesPage from './pages/MessagesPage';
+import './App.scss';
 
 function App() {
   return (
-    <div className="container-fluid">
-      <Header />
+    <div className="App">
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/Login" component={LoginPage} />
-        <Route path="/Messages" component={MessagesPage} />
-        <Route component={PageNotFound} />
+        <Route exact path="/messages" component={MessagesPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   );

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import messages from './message.reducer';
-import users from './user.reducer';
+import apiCallsInProgress from './api-status.reducer';
 
 const rootReducer = combineReducers({
   messages,
-  users,
+  apiCallsInProgress,
 });
 
 export default rootReducer;

@@ -1,4 +1,3 @@
-
 ## Local Spin-up/Development Instructions
 
 1.  **Install/Update [Node](https://nodejs.org)**.
@@ -9,7 +8,7 @@
 
 4.  **Install [React developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Redux Dev Tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)** in Chrome.
 
-5. Having issues? See the **Troubleshooting** section below.
+5.  Having issues? See the **Troubleshooting** section below.
 
 ### Available Scripts
 
@@ -17,15 +16,15 @@ In the project directory, you can run:
 
 #### `npm start`
 
-Runs the app in development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+Automatically runs the app in development mode.
+Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+The page will hot-reload if you make edits.
 
-#### `npm test`
+#### `npm run start:dev`
 
-Launches the test runner in the interactive watch mode.
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Automatically runs the app in development mode and starts a mock JSON API server in parallel for testing API calls locally.
+Open [http://localhost:3000](http://localhost:3000) to view the app in your browser. The page will hot-reload if you make edits.
+Open [http://localhost:3001](http://localhost:3001) to view raw data from the JSON server.
 
 #### `npm run build`
 
@@ -35,13 +34,26 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+#### `npm test`
+
+Launches the test runner in the interactive watch mode.
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
 ### Troubleshooting
 
-1. Run `npm install` - If you forget to do this, you'll get an error when you try to start the app later.
+1. Run `npm ci` - If you forget to do this, you'll get an error when you try to start the app later. At the time of writing this there were errors about Python not being set from the command line or npm configuration. This is a bug in npm ci and the error should be ignored.
 2. Delete any .eslintrc in your user directory and disable any ESLint plugin / custom rules within your editor since these will conflict with the ESLint rules defined in the app.
 3. On Windows? Open your console as an administrator. This will assure the console has the necessary rights to perform installs.
 4. Ensure you do not have NODE_ENV=production in your env variables as it will not install the devDependencies. To check run this on the command line: `set NODE_ENV`. If it comes back as production, you need to clear this env variable.
 5. Nothing above work? Delete your node_modules folder and re-run npm install.
+
+## Helpful VS Code Extensions
+
+### [ES7 React/Redux/GraphQL/React-Native snippets extension](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
+
+A VS Code extension that provides shortcuts for creating React/Redux snippets.
+
+Examples: - type `imp` and push `tab` to add `import moduleName from 'module'` to your code file. - type `rcc` + `tab` to add a React class component snippet.
 
 ### [Prettier](https://prettier.io/) Setup
 
@@ -51,11 +63,13 @@ The VS Code Prettier extension can be used to auto-format your code on save.
 2. Then, in the VS Code main toolbar, click on Code -> Preferences -> Settings
 3. Within the settings search for FormatOnSave and make sure the setting is enabled.
 
-### [ES7 React/Redux/GraphQL/React-Native snippets extension](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
+### [ESLint](https://eslint.org/docs/user-guide/configuring)
 
-A VS Code extension that provides shortcuts for creating React/Redux snippets.
+1. Click on the extensions icon on the left side-bar and search for ESLint and click install.
 
-Examples: - type `imp` and push `tab` to add `import moduleName from 'module'` to your code file. - type `rcc` + `tab` to add a React class component snippet.
+The extension uses the ESLint library installed in the opened workspace folder. If the folder doesn't provide one the extension looks for a global install version. If you haven't installed ESLint either locally or globally do so by running `npm install eslint` in the workspace folder for a local install or `npm install -g eslint` for a global install.
+
+(_**`After cloning this template, you can remove everything beyond this point. The following information is used to keep this template up to date.`**_)
 
 ## How this application was created
 
@@ -63,9 +77,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Other [React Starter Projects](https://www.javascriptstuff.com/react-starter-projects/).
 
-### 1. Use the Facebook React tool-chain to spin-up a new React app.
+### 1. Use the Facebook React tool-chain to spin-up a new React app with Redux.
 
--  `npx create-react-app your-app`
+- `npx create-react-app my-app --template redux`
 
 - The above command will setup a React dev environment, install and configure Webpack, Babel, ESLint and Prettier.
 
@@ -77,9 +91,9 @@ your-app<br />
 ├── package.json<br />
 ├── .gitignore<br />
 ├── public<br />
-  │ ├── favicon.ico<br />
-  │ ├── index.html<br />
-  │ └── manifest.json<br />
+│ ├── favicon.ico<br />
+│ ├── index.html<br />
+│ └── manifest.json<br />
 └── src<br />
 ├── App.css<br />
 ├── App.js<br />
@@ -89,83 +103,78 @@ your-app<br />
 ├── logo.svg<br />
 └── serviceWorker.js<br />
 
-### 3. To run the app, use the following command in a terminal window
+### 3. Install [Redux](https://redux.js.org/introduction/getting-started)
 
--  `npm start`
+Redux makes it easier to manage state in an application. Redux manages the data displayed and the application's response to user actions.
 
-- You should be able to browse to http://localhost:3000
+- Redux was installed by the create-react-app step so we don't need to npm install it.
 
-### 4. Install [SASS](https://sass-lang.com/)
+The standard way to use synchronous action creators with network requests is to use the Redux Thunk middleware. By using this specific middleware an action creator can return a function instead of an action object. This way, the action creator becomes a thunk. This function doesn't need to be pure; it is thus allowed to have side effects, including executing asynchronous API calls. The function can also dispatch actions.
 
--  `npm install node-sass --save`
+- `npm i redux-thunk`
+
+The redux immutable state invariant will warn us if we accidentally mutate redux state.
+
+- `npm i -D redux-immutable-state-invariant`
+
+### 3. Install [SASS](https://sass-lang.com/)
+
+- `npm i node-sass`
 
 - Rename the `App.css` file to `App.scss`.
 
 - Import `App.scss` instead of the `.css` file in the `App.js` file
 
-### 5. Install [ESLint](https://eslint.org/docs/user-guide/configuring)
+### 4. [ESLint](https://eslint.org/docs/user-guide/configuring) & Prettier Setup
 
 - ESLint will get installed as part of the “Create-React-App” dependencies.
 
 - You will need to install the ESLint extension in VS Code.
 
-Configure ESLint for your project:
+- Install the ESLint and Prettier libraries locally into the project:
 
--  `npx eslint --init`
+  `npm i -D eslint prettier`
 
-You will be asked several questions for configuring ES Lint, answer them as follows:
+- Install the Airbnb config. The peer dependencies are not automatically installed on npm install
+  so the `install-peerdeps` flag is included.
 
-1. How would you like to use ESLint? `To check syntax, find problems, and enforce code style`
+  `npx install-peerdeps -D eslint-config-airbnb`
 
-2. What type of modules does your project use? `JavaScript modules (import/export)`
+- Install eslint-config-prettier (disables formatting for ESLint) and eslint-plugin-prettier (allows ESLint to show formatting errors as we type)
+  `npm i -D eslint-config-prettier eslint-plugin-prettier`
 
-3. Which framework does your project use? `React`
+### 5. Install [StyleLint](https://stylelint.io/)
 
-4. Does your project use TypeScript? `No`
+- `npm i -g stylelint-cli`
 
-5. Where does your code run? `Browser`
+Use -D to install these as dev dependencies. We don't need them for production builds.
 
-6. How would you like to define a style for your project? `Use a popular style guide`
+- `npm i -D stylelint`
 
-7. Which style guide do you want to follow? `Airbnb: https://github.com/airbnb/javascript`
+- `npm i -D stylelint-config-recommended`
 
-8. What format do you want your config file to be in? `JSON`
+- `npm i -D stylelint-config-standard`
 
-You will be prompted to install the ESLint config for Airbnb. Type `yes` to install.
+- `npm i -D stylelint-config-sass-guidelines`
 
-### 6. Install [StyleLint](https://stylelint.io/)
+- `npm i -D stylelint-order`
 
--  `npm i -g stylelint-cli`
-
-Use --save-dev to install these as dev dependencies. We don't need them for production builds.
-
--  `npm i --save-dev stylelint`
-
--  `npm i --save-dev stylelint-config-recommended`
-
--  `npm i --save-dev stylelint-config-standard`
-
--  `npm i --save-dev stylelint-config-sass-guidelines`
-
--  `npm i --save-dev stylelint-order`
-
-Create the .stylelintrc.json configuration file in the project root.
+Create the .stylelintrc configuration file in the project root.
 Add the Stylelint extension for VSCode (adds realtime linter error reporting)
 Edit the Stylelint extension settings in VS Code and make sure the `Stylelint` setting is enabled.
 
-### 7. Add an [EditorConfig](https://editorconfig.org/)
+### 6. Add an [EditorConfig](https://editorconfig.org/)
 
-  You can add an EditorConfig file to your project or codebase to enforce consistent coding styles for everyone that works in the codebase. EditorConfig settings take precedence over global Visual Studio text editor settings. This means that you can tailor each codebase to use text editor settings that are specific to that project.
+You can add a .editorconfig file to your project or codebase to enforce consistent coding styles for everyone that works in the codebase. EditorConfig settings take precedence over global Visual Studio text editor settings. This means that you can tailor each codebase to use text editor settings that are specific to that project.
 
-### 8. Workspace File
+### 7. Workspace File
 
 #### What is a workspace?
 
 A project that consists of one or more root folders, along with all of the Visual Studio Code configurations that belong to that project.
 
-A "root folder" is the top level directory of a file system.
-
 These configurations include data such as:
+
 - Settings that should be applied when the project is open.
 - Recommended extensions for the project (useful when sharing the configuration files with colleagues)
 - Project-specific debugging configurations

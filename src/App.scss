@@ -1,3 +1,48 @@
+/*
+   This CSS file is only used for testing the application after spin-up.
+   It is recommended that this file be replaced with your own CSS
+   configuration files.
+*/
+
+/* Custom CSS for Testing only */
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 0 15px;
+}
+
+ul {
+  list-style: none;
+}
+
+.form-group {
+  display: flex;
+  margin-top: 15px;
+
+  button {
+    margin-left: 5px;
+  }
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  display: block;
+  font-size: 80%;
+  margin-top: 0.25rem;
+  text-align: left;
+  width: 100%;
+}
+
+/* React Home Page */
 .App {
   text-align: center;
 }
@@ -34,6 +79,49 @@
   }
 
   to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  height: 80px;
+  position: relative;
+  width: 80px;
+}
+
+.spinner div {
+  animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border: 8px solid black;
+  border-color: black transparent transparent transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  height: 64px;
+  margin: 8px;
+  position: absolute;
+  width: 64px;
+}
+
+.spinner div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.spinner div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.spinner div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
     transform: rotate(360deg);
   }
 }
