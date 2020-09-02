@@ -1,0 +1,30 @@
+a {
+  color: $secondary;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:active {
+    outline: none;
+  }
+
+  &:active,
+  &:focus {
+    color: $secondary-offset;
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: darken($secondary, 10%);
+    text-decoration: underline;
+  }
+
+  &:disabled:hover {
+    cursor: not-allowed;
+  }
+}
+
+button {
+  &:disabled:hover {
+    cursor: not-allowed;
+  }
+}
