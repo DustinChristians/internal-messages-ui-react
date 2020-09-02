@@ -1,0 +1,32 @@
+.card {
+  .card-img-top {
+    height: 180px;
+  }
+}
+
+.card-deck {
+  @include mobile {
+    display: block;
+
+    .card {
+      margin-bottom: 2%;
+    }
+  }
+}
+
+.card-grid-3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-right: -2%;
+
+  .card {
+    display: block;
+    margin-bottom: 2%;
+    margin-right: 2%;
+
+    @include tablet-and-desktop {
+      flex: 0 0 31.33%; // (100% - (3 margins * 2%)) / 3 items
+    }
+  }
+}

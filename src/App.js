@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import MessagesPage from './pages/MessagesPage';
 import './App.scss';
+import './styles/styles.scss';
 
 function App() {
   return (
