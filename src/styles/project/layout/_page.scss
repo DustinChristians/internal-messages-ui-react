@@ -4,9 +4,16 @@ html {
 }
 
 body {
+  font-family: Georgia, serif;
+  -moz-osx-font-smoothing: grayscale;
   margin-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
 }
 
 body > .container {
   padding: 60px 15px 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
