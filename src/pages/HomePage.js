@@ -8,17 +8,23 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="jumbotron">
+      <div className="jumbotron bg-transparent text-center">
         <h1>Instant Chat</h1>
-        <p>Free conversations. Invite anyone.</p>
+        <p>Free conversations. Invite anyone. No sign up required.</p>
       </div>
-
-      <Link className="btn btn-pink" role="button" to="/messages" onClick={handleClick}>
-        Start a Conversation
-      </Link>
-      <button className="btn btn-pink" type="button" onClick={handleClick}>
-        Join a Conversation
-      </button>
+      <div className="d-flex justify-content-center">
+        <Link
+          className="m-3 p-3 btn btn-dark btn-lg"
+          role="button"
+          to="/messages"
+          onClick={handleClick}
+        >
+          Start a Conversation
+        </Link>
+        <button className="m-3 p-3 btn btn-dark btn-lg" type="button" onClick={handleClick}>
+          Join a Conversation
+        </button>
+      </div>
     </>
   );
 };

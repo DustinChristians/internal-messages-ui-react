@@ -4,8 +4,11 @@
 @import 'project/layout/_header';
 @import 'project/layout/_page';
 @import 'project/layout/_footer';
+@import 'project/layout/position';
 
 // Elements
 @import 'project/components/_actions';
 @import 'project/components/_cards';
-@import 'project/components/_headings';
+
+// Pages
+@import 'project/pages/_home';
