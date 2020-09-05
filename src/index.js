@@ -3,11 +3,10 @@ import { render } from 'react-dom';
 import { positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.scss';
+import './styles/styles.scss';
 import { Provider as ReduxProvider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import './index.css';
 import configureStore from './redux/configureStore';
 
 const store = configureStore();

@@ -1,42 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../logo.svg';
-import '../App.scss';
 
-function HomePage() {
+const HomePage = () => {
+  function handleClick() {
+    console.log('handleClick');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <ul>
-          <li>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </li>
-          <li>
-            <Link to="/messages" className="App-link">
-              API / Redux Test Page
-            </Link>{' '}
-            (to run the JSON-Server mock API use: <b>npm run start:dev</b>)
-          </li>
-          <li>
-            <a href={process.env.REACT_APP_API_URL} className="App-link">
-              JSON-Server Home Page
-            </a>{' '}
-          </li>
-        </ul>
-      </header>
-    </div>
+    <>
+      <div className="jumbotron bg-transparent text-center">
+        <h1>Instant Chat</h1>
+        <p>Free conversations. Invite anyone. No sign up required.</p>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Link
+          className="m-3 p-3 btn btn-dark btn-lg"
+          role="button"
+          to="/messages"
+          onClick={handleClick}
+        >
+          Start a Conversation
+        </Link>
+        <button className="m-3 p-3 btn btn-dark btn-lg" type="button" onClick={handleClick}>
+          Join a Conversation
+        </button>
+      </div>
+    </>
   );
-}
+};
 
 export default HomePage;
