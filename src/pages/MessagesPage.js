@@ -1,125 +1,111 @@
 import React, { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Spinner from '../components/common/Spinner';
+// import Spinner from '../components/common/Spinner';
 import * as messageActions from '../redux/actions/message.actions';
-import TextEditList from '../components/TextEditList';
-import TextInput from '../components/common/TextInput';
+// import TextEditList from '../components/TextEditList';
+// import TextInput from '../components/common/TextInput';
 
-const MessagesPage = ({ messages, loadMessages, saveMessage, deleteMessage, loading }) => {
+const MessagesPage = ({ loadMessages, saveMessage }) => {
   const alert = useAlert();
-  const { register, handleSubmit, watch, errors } = useForm();
-  const newMessageValue = watch('newMessage');
-  const [editedMessages, setEditedMessages] = useState([]);
+  // const { register, handleSubmit, watch, errors } = useForm();
+  // const newMessageValue = watch('newMessage');
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState({});
-  const [saving, setSaving] = useState(false);
-  const [apiErrors, setApiErrors] = useState({});
+  // const [saving, setSaving] = useState(false);
+  // const [apiErrors, setApiErrors] = useState({});
 
   useEffect(() => {
-    if (messages.length === 0 && !loading) {
+    // If a guid is not present in the URL we'll generate one to create a new chat room
+
+    if (messages.length === 0) {
       loadMessages().then((loadedMessages) => {
-        setEditedMessages([loadedMessages]);
+        setMessages([loadedMessages]);
       });
-    } else {
-      setEditedMessages(messages);
     }
-  }, [loadMessages, messages, messages.length, loading]);
+  }, [loadMessages, messages, messages.length]);
 
-  function handleDelete(messageId) {
-    const message = editedMessages.find(({ id }) => id === messageId);
+  // function handleSave(messageId) {
+  //   const message = messages.find(({ id }) => id === messageId);
+  //   setSaving(true);
 
-    deleteMessage(message)
-      .then(alert.success('Message deleted'))
-      .catch((error) => {
-        alert.error(error.message);
-      });
-  }
+  //   saveMessage(message)
+  //     .then(alert.success('Message updated'))
+  //     .catch((error) => {
+  //       alert.error(error.message);
+  //       setApiErrors({ onSave: error.message });
+  //     })
+  //     .finally(setSaving(false));
+  // }
 
-  function handleSave(messageId) {
-    const message = editedMessages.find(({ id }) => id === messageId);
-    setSaving(true);
+  // function handleNewChange(event) {
+  //   const { value } = event.target;
 
-    saveMessage(message)
-      .then(alert.success('Message updated'))
-      .catch((error) => {
-        alert.error(error.message);
-        setApiErrors({ onSave: error.message });
-      })
-      .finally(setSaving(false));
-  }
+  //   setNewMessage({ ...newMessage, text: value });
+  // }
 
-  function handleNewChange(event) {
-    const { value } = event.target;
+  // function handleNewSave() {
+  //   setSaving(true);
 
-    setNewMessage({ ...newMessage, text: value });
-  }
-
-  function handleNewSave() {
-    setSaving(true);
-
-    saveMessage(newMessage)
-      .then(alert.success('Message created'))
-      .catch((error) => {
-        alert.error(error.message);
-        setApiErrors({ onSave: error.message });
-      })
-      .finally(setSaving(false));
-  }
+  //   saveMessage(newMessage)
+  //     .then(alert.success('Message created'))
+  //     .catch((error) => {
+  //       alert.error(error.message);
+  //       setApiErrors({ onSave: error.message });
+  //     })
+  //     .finally(setSaving(false));
+  // }
 
   return (
-    <div className="container container-fluid">
-      <h2>Messages</h2>
-      {messages.length === 0 ? (
-        <Spinner />
-      ) : (
-        <>
-          {apiErrors.onSave && (
-            <div className="alert alert-danger" role="alert">
-              {apiErrors.onSave}
-            </div>
-          )}
-          {editedMessages.length && (
-            <TextEditList
-              items={editedMessages}
-              setItems={setEditedMessages}
-              handleSave={handleSave}
-              handleDelete={handleDelete}
-              saving={saving}
-              validation={{ required: true }}
-            />
-          )}
-          <TextInput
-            name="newMessage"
-            placeholder="Add a message"
-            value={newMessageValue}
-            onChange={handleNewChange}
-            reference={register({ required: true })}
-            validationErrors={errors}
-          >
-            {' '}
-            <button
-              type="submit"
-              onClick={handleSubmit(handleNewSave)}
-              disabled={saving}
-              className="btn btn-primary"
-            >
-              {saving ? 'Saving...' : 'Save'}
-            </button>
-          </TextInput>
-        </>
-      )}
+    <div className="my-5 w-75 horizontal-center">
+      <div className="chat-container">
+        <div className="chat-message">
+          <div className="d-flex justify-content-start">
+            <p className="chat-name">Bob</p>
+            <span className="chat-time">11:00 AM</span>
+          </div>
+          <p>Hello. How are you today?</p>
+          <hr />
+        </div>
+        <div className="chat-message">
+          <div className="d-flex justify-content-start">
+            <p className="chat-name">Bob</p>
+            <span className="chat-time">11:00 AM</span>
+          </div>
+          <p>Hello. How are you today?</p>
+          <hr />
+        </div>
+        <div className="chat-message">
+          <div className="d-flex justify-content-start">
+            <p className="chat-name">Bob</p>
+            <span className="chat-time">11:00 AM</span>
+          </div>
+          <p>Hello. How are you today?</p>
+          <hr />
+        </div>
+        <div className="chat-message">
+          <div className="d-flex justify-content-start">
+            <p className="chat-name">Bob</p>
+            <span className="chat-time">11:00 AM</span>
+          </div>
+          <p>Hello. How are you today?</p>
+        </div>
+        <div className="form-group">
+          <input className="form-control chat-input" type="text" name="chat" />
+        </div>
+      </div>
     </div>
   );
 };
 
 MessagesPage.propTypes = {
-  messages: PropTypes.instanceOf(Array).isRequired,
+  // messages: PropTypes.instanceOf(Array).isRequired,
   loadMessages: PropTypes.func.isRequired,
   saveMessage: PropTypes.func.isRequired,
-  deleteMessage: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  // deleteMessage: PropTypes.func.isRequired,
+  // loading: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
