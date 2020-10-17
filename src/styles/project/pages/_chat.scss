@@ -1,0 +1,38 @@
+/* Chat containers */
+.chat-container {
+  background-color: #f1f1f1;
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+/* Darker chat container */
+.darker {
+  background-color: #ddd;
+  border-color: #ccc;
+}
+
+/* Clear floats */
+.chat-container::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.chat-input {
+  width: 100%;
+}
+
+/* Style images */
+.chat-name {
+  border-radius: 50%;
+  font: small-caps bold 12px/30px Georgia, serif;
+  margin-right: 10px;
+}
+
+/* Style time text */
+.chat-time {
+  color: #aaa;
+  font: small-caps bold 12px/30px Georgia, serif;
+}
