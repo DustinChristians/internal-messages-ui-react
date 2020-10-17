@@ -1,14 +1,17 @@
 const messages = [
   {
-    id: 1,
+    user: 'Bob',
+    datetime: '10/17/2020 3:20:29 PM',
     text: 'At vero eos et accusamus',
   },
   {
-    id: 2,
+    user: 'Bill',
+    datetime: '10/17/2020 3:20:54 PM',
     text: 'Nam libero tempore',
   },
   {
-    id: 3,
+    user: 'Bob',
+    datetime: '10/17/2020 3:21:05 PM',
     text: 'rerum necessitatibus saepe',
   },
 ];
