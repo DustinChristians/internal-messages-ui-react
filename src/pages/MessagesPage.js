@@ -1,97 +1,82 @@
 import React, { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
-// import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Spinner from '../components/common/Spinner';
+import Spinner from '../components/common/Spinner';
 import * as messageActions from '../redux/actions/message.actions';
-// import TextEditList from '../components/TextEditList';
-// import TextInput from '../components/common/TextInput';
+import TextEditList from '../components/TextEditList';
+import TextInput from '../components/common/TextInput';
+import Message from '../components/Messages/Message';
 
-const MessagesPage = ({ loadMessages, saveMessage }) => {
+const MessagesPage = ({ messages, loadMessages, saveMessage, deleteMessage, loading }) => {
   const alert = useAlert();
-  // const { register, handleSubmit, watch, errors } = useForm();
-  // const newMessageValue = watch('newMessage');
-  const [messages, setMessages] = useState([]);
+  const { register, handleSubmit, watch, errors } = useForm();
+  const newMessageValue = watch('newMessage');
+  const [editedMessages, setEditedMessages] = useState([]);
   const [newMessage, setNewMessage] = useState({});
-  // const [saving, setSaving] = useState(false);
-  // const [apiErrors, setApiErrors] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [apiErrors, setApiErrors] = useState({});
 
   useEffect(() => {
-    // If a guid is not present in the URL we'll generate one to create a new chat room
-
-    if (messages.length === 0) {
+    if (messages.length === 0 && !loading) {
       loadMessages().then((loadedMessages) => {
-        setMessages([loadedMessages]);
+        console.log('if', loadedMessages);
+        setEditedMessages([loadedMessages]);
       });
+    } else {
+      console.log('else', messages);
+      setEditedMessages(messages);
     }
-  }, [loadMessages, messages, messages.length]);
+  }, [loadMessages, messages, messages.length, loading]);
 
-  // function handleSave(messageId) {
-  //   const message = messages.find(({ id }) => id === messageId);
-  //   setSaving(true);
+  function handleDelete(messageId) {
+    const message = editedMessages.find(({ id }) => id === messageId);
 
-  //   saveMessage(message)
-  //     .then(alert.success('Message updated'))
-  //     .catch((error) => {
-  //       alert.error(error.message);
-  //       setApiErrors({ onSave: error.message });
-  //     })
-  //     .finally(setSaving(false));
-  // }
+    deleteMessage(message)
+      .then(alert.success('Message deleted'))
+      .catch((error) => {
+        alert.error(error.message);
+      });
+  }
 
-  // function handleNewChange(event) {
-  //   const { value } = event.target;
+  function handleSave(messageId) {
+    const message = editedMessages.find(({ id }) => id === messageId);
+    setSaving(true);
 
-  //   setNewMessage({ ...newMessage, text: value });
-  // }
+    saveMessage(message)
+      .then(alert.success('Message updated'))
+      .catch((error) => {
+        alert.error(error.message);
+        setApiErrors({ onSave: error.message });
+      })
+      .finally(setSaving(false));
+  }
 
-  // function handleNewSave() {
-  //   setSaving(true);
+  function handleNewChange(event) {
+    const { value } = event.target;
 
-  //   saveMessage(newMessage)
-  //     .then(alert.success('Message created'))
-  //     .catch((error) => {
-  //       alert.error(error.message);
-  //       setApiErrors({ onSave: error.message });
-  //     })
-  //     .finally(setSaving(false));
-  // }
+    setNewMessage({ ...newMessage, text: value });
+  }
+
+  function handleNewSave() {
+    setSaving(true);
+
+    saveMessage(newMessage)
+      .then(alert.success('Message created'))
+      .catch((error) => {
+        alert.error(error.message);
+        setApiErrors({ onSave: error.message });
+      })
+      .finally(setSaving(false));
+  }
 
   return (
     <div className="my-5 w-75 horizontal-center">
       <div className="chat-container">
-        <div className="chat-message">
-          <div className="d-flex justify-content-start">
-            <p className="chat-name">Bob</p>
-            <span className="chat-time">11:00 AM</span>
-          </div>
-          <p>Hello. How are you today?</p>
-          <hr />
-        </div>
-        <div className="chat-message">
-          <div className="d-flex justify-content-start">
-            <p className="chat-name">Bob</p>
-            <span className="chat-time">11:00 AM</span>
-          </div>
-          <p>Hello. How are you today?</p>
-          <hr />
-        </div>
-        <div className="chat-message">
-          <div className="d-flex justify-content-start">
-            <p className="chat-name">Bob</p>
-            <span className="chat-time">11:00 AM</span>
-          </div>
-          <p>Hello. How are you today?</p>
-          <hr />
-        </div>
-        <div className="chat-message">
-          <div className="d-flex justify-content-start">
-            <p className="chat-name">Bob</p>
-            <span className="chat-time">11:00 AM</span>
-          </div>
-          <p>Hello. How are you today?</p>
-        </div>
+        {editedMessages.map((item) => {
+          return <Message message={item} />;
+        })}
         <div className="form-group">
           <input className="form-control chat-input" type="text" name="chat" />
         </div>
@@ -101,11 +86,11 @@ const MessagesPage = ({ loadMessages, saveMessage }) => {
 };
 
 MessagesPage.propTypes = {
-  // messages: PropTypes.instanceOf(Array).isRequired,
+  messages: PropTypes.instanceOf(Array).isRequired,
   loadMessages: PropTypes.func.isRequired,
   saveMessage: PropTypes.func.isRequired,
-  // deleteMessage: PropTypes.func.isRequired,
-  // loading: PropTypes.bool.isRequired,
+  deleteMessage: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
